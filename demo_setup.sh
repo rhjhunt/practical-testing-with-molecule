@@ -11,12 +11,12 @@ molecule converge && WAIT_SECONDS=5 molecule verify
 molecule converge -s vagrant && WAIT_SECONDS=5 molecule verify -s vagrant
 popd
 
-pushd kubernetes
+#pushd kubernetes
 # molecule destroy --all
-molecule converge && molecule verify
-molecule converge -s operator && molecule verify -s operator
-popd
+#molecule converge && molecule verify
+#molecule converge -s operator && molecule verify -s operator
+#popd
 
 
-export KUBECONFIG=~/.cache/molecule/kubernetes/operator/.kubeconfig
+#export KUBECONFIG=~/.cache/molecule/kubernetes/operator/.kubeconfig
 doitlive play demo.sh
