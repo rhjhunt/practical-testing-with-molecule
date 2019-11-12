@@ -212,6 +212,7 @@ vim roles/minecraft-kubernetes/templates/deployment.yaml.j2
 # 
 vim molecule/default/molecule.yml
 
+
 # Looking at the molecule.yml, you can see
 # it's actually using the docker driver, which may strike you as odd, because Kubernetes runs containers,
 # but it's actually this really cool project that spins up a whole Kubernetes cluster inside a docker
