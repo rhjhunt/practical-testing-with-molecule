@@ -6,8 +6,9 @@ driver:
   name: vagrant
   provider:
     name: libvirt
-lint:
-  name: yamllint
+lint: |
+  yamllint .
+  ansible-lint .
 platforms:
   - name: minecraft-server
     groups:
@@ -37,5 +38,3 @@ provisioner:
     verify: ../default/verify.yml
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint

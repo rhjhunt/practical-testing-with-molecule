@@ -1,17 +1,22 @@
 ---
-
 dependency:
   name: galaxy
 driver:
   name: podman
-lint:
-  name: yamllint
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
 platforms:
   - name: minecraft-server
     groups:
-     - server
-    image: "geerlingguy/docker-centos7-ansible:latest"
+      - server
+        #image: "geerlingguy/docker-centos7-ansible:latest"
+    image: centos:7
     command: init
+    tmpfs:
+      - /run
+      - /tmp
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
@@ -20,13 +25,11 @@ platforms:
       - 0.0.0.0:${MINECRAFT_PORT:-25565}:25565/tcp
   - name: minecraft-client
     groups:
-     - client
+      - client
     image: python
     pre_build_image: true
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
   inventory:
     group_vars:
       server:
@@ -37,5 +40,3 @@ provisioner:
         wait_seconds: ${WAIT_SECONDS:-120}
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint
